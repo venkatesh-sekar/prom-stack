@@ -29,3 +29,9 @@ scrape_configs:
         - pushgateway:9091
         - alertmanager:9093
         - grafana:3000
+  - job_name: 'spiders'
+    static_configs:
+      - targets:
+        - 68.183.111.30:8000
+        - 68.183.27.202:8000
+    metrics_path: ''
