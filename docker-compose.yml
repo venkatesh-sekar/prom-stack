@@ -14,7 +14,6 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.enable-admin-api'
       - '--web.enable-lifecycle'
-      - '-storage.local.path=/prometheus'
     ports:
       - 9090:9090
     volumes:
