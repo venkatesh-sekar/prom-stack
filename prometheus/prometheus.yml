@@ -30,14 +30,7 @@ scrape_configs:
         - alertmanager:9093
         - grafana:3000
   - job_name: 'spiders'
-    static_configs:
-      - targets:
-        - 134.209.130.169:8000
-        - 134.209.130.169:8001
-        - 134.209.130.169:8002
-        - 134.209.130.169:8003
-        - 134.209.130.166:8000
-        - 134.209.130.166:8001
-        - 134.209.130.166:8002
-        - 134.209.130.166:8003
+    file_sd_configs:
+      - files:
+        - '/etc/prometheus/target.json'
     metrics_path: ''
