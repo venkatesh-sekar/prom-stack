@@ -5,6 +5,8 @@ services:
     image: prom/pushgateway:v0.4.0
     ports:
       - 9091:9091
+    restart: unless-stopped
+
 
   prometheus:
     image: prom/prometheus:latest
@@ -12,11 +14,15 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.enable-admin-api'
       - '--web.enable-lifecycle'
+      - '-storage.local.path=/prometheus'
     ports:
       - 9090:9090
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/alerts/:/etc/prometheus/rules.d/
+      - ./prometheus/data:/prometheus
+    restart: unless-stopped
+
 
   grafana:
     image: grafana/grafana:latest
@@ -24,10 +30,21 @@ services:
       - 3000:3000
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=password
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=smtp.gmail.com:587
+      - GF_SMTP_USER=venkatesh251997@gmail.com
+      - GF_SMTP_PASSWORD=*vdp926qO7nH
+      - GF_SMTP_FROM_ADDRESS=venkatesh251997@gmail.com
+    restart: unless-stopped
+    volumes:
+          - ./grafana:/var/lib/grafana
+
 
   alertmanager:
     image: prom/alertmanager:latest
     command: --config.file=/etc/alertmanager/alertmanager.yml
+    restart: unless-stopped
     ports:
       - 9093:9093
     volumes:
