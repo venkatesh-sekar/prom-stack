@@ -31,15 +31,12 @@ services:
       - 3000:3000
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=password
-      - GF_USERS_ALLOW_SIGN_UP=false
       - GF_SMTP_ENABLED=true
       - GF_SMTP_HOST=smtp.gmail.com:587
       - GF_SMTP_USER=venkatesh251997@gmail.com
       - GF_SMTP_PASSWORD=*vdp926qO7nH
       - GF_SMTP_FROM_ADDRESS=venkatesh251997@gmail.com
     restart: unless-stopped
-    volumes:
-          - ./grafana:/var/lib/grafana
 
 
   alertmanager:
